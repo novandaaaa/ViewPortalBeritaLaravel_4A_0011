@@ -18,7 +18,6 @@
             <a class="navbar-brand fw-bold" href="{{ url('/') }}">KABAR BURUNG</a>
             <div class="ms-auto d-flex gap-2">
                 @auth
-                    <a href="{{ url('/posts/create') }}" class="btn btn-light btn-sm">+ Tulis Berita</a>
                     <a href="{{ url('/home') }}" class="btn btn-outline-light btn-sm">Dashboard</a>
                     <form method="POST" action="{{ url('/logout') }}" class="d-inline m-0">
                         @csrf
