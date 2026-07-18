@@ -4,11 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\AuthController;
 
+Route::get('/', [PostController::class, 'index'])->name('posts.index');
 
-Route::get('/', function () {
-    return redirect('/login');
-});
-
+Route::get('/posts/{id}', [PostController::class, 'show'])->name('posts.show');
 
 Route::get('/register', [AuthController::class, 'showRegister'])->name('register');
 Route::post('/register', [AuthController::class, 'register']);
@@ -18,16 +16,13 @@ Route::post('/login', [AuthController::class, 'login']);
 
 Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
-
-
 Route::middleware('auth')->group(function () {
 
-
-    Route::get('/home', [PostController::class, 'home'])
-        ->name('home');
-
-    Route::get('/posts/{id}', [PostController::class, 'show'])
-        ->name('posts.show');
-
+    Route::get('/home', [PostController::class, 'dashboard'])->name('home');
+    Route::get('/posts/create', [PostController::class, 'create'])->name('posts.create');
+    Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+    Route::get('/posts/{id}/edit', [PostController::class, 'edit'])->name('posts.edit');
+    Route::put('/posts/{id}', [PostController::class, 'update'])->name('posts.update');
+    Route::delete('/posts/{id}', [PostController::class, 'destroy'])->name('posts.destroy');
 
 });

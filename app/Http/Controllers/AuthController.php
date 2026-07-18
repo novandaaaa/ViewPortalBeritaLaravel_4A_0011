@@ -8,13 +8,11 @@ use Illuminate\Support\Facades\Hash;
 
 class AuthController extends Controller
 {
-    // Tampilkan form register
     public function showRegister()
     {
         return view('auth.register');
     }
 
-    // Proses register
     public function register(Request $request)
     {
         $request->validate([
@@ -31,16 +29,14 @@ class AuthController extends Controller
 
         Auth::login($user);
 
-        return redirect('/home');
+        return redirect('/');
     }
 
-    // Tampilkan form login
     public function showLogin()
     {
         return view('auth.login');
     }
 
-    // Proses login
     public function login(Request $request)
     {
         $credentials = $request->validate([
@@ -50,7 +46,7 @@ class AuthController extends Controller
 
         if (Auth::attempt($credentials)) {
             $request->session()->regenerate();
-            return redirect('/home');
+            return redirect('/');
         }
 
         return back()->withErrors([
@@ -58,7 +54,6 @@ class AuthController extends Controller
         ])->onlyInput('email');
     }
 
-    // Logout
     public function logout(Request $request)
     {
         Auth::logout();
